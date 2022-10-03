@@ -1,0 +1,74 @@
+﻿@model IEnumerable<PHIMS.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<p class="d-flex">
+    <h2 class="d-inline">Doctors Management</h2>
+    <a onclick="showModal('@Url.Action("Create","Doctors",null,Context.Request.Scheme)','Doctor Registration')" class="btn btn-success float-end "><i class="bi bi-plus-square-fill"></i> Register New</a>
+</p>
+<hr />
+<table class="table table-striped table-hover table-bordered display nowrap" style="width: 100%" id="table_id">
+    <thead >
+        <tr>
+             <th >
+                @Html.DisplayNameFor(model => model.Doctor_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </th>  
+            <th>
+                @Html.DisplayNameFor(model => model.Specializations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Working_days)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Available)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td >
+                @Html.DisplayFor(model => item.Doctor_Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.M_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone_Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Specializations)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Working_days)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+            <td>
+                    <a onclick="showModal('@Url.Action("Edit","Doctors",new {id=item.Doctor_Id},Context.Request.Scheme)','Doctor Updating')" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a> |
+                    <a onclick="showModal('@Url.Action("Details","Doctors",new {id=item.Doctor_Id},Context.Request.Scheme)','Doctors Details')" class="btn btn-secondary btn-sm"><i class="bi bi-clipboard-data"></i>  Details</a> |
+                    <a asp-controller="Doctors" asp-action="Delete" asp-route-id="@item.Doctor_Id" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

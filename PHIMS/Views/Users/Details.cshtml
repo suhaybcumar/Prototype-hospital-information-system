@@ -1,0 +1,69 @@
+﻿@model PHIMS.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+<div>
+    
+    <dl class="row">
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.F_Name)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.F_Name)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.M_Name)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.M_Name)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.L_Name)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.L_Name)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Phone_Number)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+        <dd class = "col-sm-8">
+            @{var dob = Model.R_Date.ToShortDateString();}
+            @Html.DisplayFor(model => dob)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.R_Date)
+        </dt>
+        <dd class = "col-sm-8">
+            @{var reg = Model.R_Date.ToShortDateString();}
+            @Html.DisplayFor(model => reg)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Admin)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Admin.F_Name)
+        </dd>
+    </dl>
+</div>
+    

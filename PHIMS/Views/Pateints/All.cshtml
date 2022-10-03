@@ -1,0 +1,169 @@
+﻿@model IEnumerable<PHIMS.Models.Pateint>
+@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<p class="d-flex">
+    <h1 class="d-inline">Pateint Managment</h1>
+    @if (User.IsInRole("User"))
+    {
+        <a onclick="showModal('@Url.Action("Create","Pateints",null,Context.Request.Scheme)','Pateints Registration')" class="btn btn-success float-end"><i class="bi bi-plus-square-fill"></i>  Create New</a>
+    }
+</p>
+<table id="table_id" class="table table-striped table-bordered table-hover table-sm display nowrap" style="width: 100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.F_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.R_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                Assing Doctors
+            </th>
+            @if (User.IsInRole("User"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Approve)
+                </th>
+            }
+            @if (User.IsInRole("User"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.State)
+                </th>
+            }
+
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.F_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.M_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone_Number)
+                </td>
+                <td>
+                    @{
+                        var reg = item.R_Date.ToShortDateString();
+                    }
+                    @Html.DisplayFor(modelItem => reg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @{
+                        string name = item.Doctor.F_Name + " " + item.Doctor.M_Name;
+
+
+                    }
+                    @Html.DisplayFor(modelItem => name)
+                </td>
+                @if (User.IsInRole("User"))
+                {
+                    <td>
+                        @if (item.State == "Finished" && item.Type == "Answer")
+                        {
+                            <a class="btn btn-success disabled text-white btn-sm">Finished</a>
+                        }
+                        else
+                        {
+                            @if (item.Approve == false)
+                            {
+                                <a class="btn btn-primary btn-sm" asp-action="Approve" asp-route-id="@item.Pateint_Id" asp-controller="Pateints">Approve</a>
+                            }
+                            else if (item.Approve == true)
+                            {
+                                <a class="btn btn-success text-white btn-sm">Approved</a>
+                            }
+                        }
+
+                    </td>
+                }
+                <td>
+
+                    @if (item.Approve == true)
+                    {
+                        if (item.State == "waiting")
+                        {
+                            <a class="btn btn-success btn-sm" asp-action="State" asp-route-id="@item.Pateint_Id" asp-controller="Pateints">@Html.DisplayFor(modelItem => item.State)</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" asp-action="State" asp-route-id="@item.Pateint_Id" asp-controller="Pateints">@Html.DisplayFor(modelItem => item.State)</a>
+                        }
+
+                    }
+                    else if (item.Approve == false && item.State == "Finished")
+                    {
+
+                        <a class="btn btn-warning btn-sm" asp-action="State" asp-route-id="@item.Pateint_Id" asp-controller="Pateints">@Html.DisplayFor(modelItem => item.State)</a>
+
+                    }
+
+                </td>
+                @if (User.IsInRole("User"))
+                {
+                    <td>
+                        @if (item.State == "Finished" && item.Type != "Answer")
+                        {
+                            <a class="btn btn-info btn-sm" asp-action="Answer" asp-route-id="@item.Pateint_Id" asp-controller="Pateints">Answer</a>
+                        }
+                        @if (item.State == "Finished" && item.Type == "Answer")
+                        {
+                            <a class="btn btn-info btn-sm disabled">Finished</a>
+                        }
+                    </td>
+                }
+                <td>
+                    @if (User.IsInRole("User"))
+                    {
+                        <a onclick="showModal('@Url.Action("Edit","Pateints",new {id=item.Pateint_Id},Context.Request.Scheme)','Edit Registration')" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                    }
+                    @if (User.IsInRole("Super Admin") || User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Pateint_Id" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i> Delete</a>
+                    }
+                    <a onclick="showModal('@Url.Action("Details","Pateints",new {id=@item.Pateint_Id})','Pateint Details')" class="btn btn-secondary btn-sm"><i class="bi bi-clipboard-data"></i> Details</a>
+                    @if (item.Type == "First Visit" && User.IsInRole("Doctor") || User.IsInRole("Super Admin"))
+                    {
+                        <a onclick="showModal('@Url.Action("Create","Labs",new {id=@item.Pateint_Id})','Laborotary Registration')" class="btn btn-info btn-sm">LAB</a>
+                    }
+                    @if (item.Type == "Answer" && User.IsInRole("Doctor") || User.IsInRole("Super Admin"))
+                    {
+                        <a onclick="showModal('@Url.Action("Create","Results",new {id=@item.Pateint_Id})','Result Registration')" class="btn btn-info btn-sm">Result</a>
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

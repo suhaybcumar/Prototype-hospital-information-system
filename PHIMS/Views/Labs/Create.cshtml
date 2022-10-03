@@ -1,0 +1,122 @@
+﻿@model PHIMS.Models.Lab
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+
+
+<div class="row">
+    <div class="col">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group  ">
+                <label asp-for="Prescription" class="control-label"></label>
+                <textarea id="text" rows="5" class="form-control" asp-for="Prescription"></textarea>
+                <span asp-validation-for="Prescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pateint_Id" class="control-label"></label>
+                <select asp-for="Pateint_Id" class ="form-control" asp-items="ViewBag.Pateint_Id"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 ">
+        <div class="">
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            BIOCHEMISTRY
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('fbs') " id="fbs">FBS</a></li>
+                            <li><a class="dropdown-item" onclick="chech('rbs') " id="rbs">RBS</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            RFT
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('crea') " id="crea">Creatinine</a></li>
+                            <li><a class="dropdown-item" onclick="chech('ure') " id="ure">Urea</a></li>
+                            <li><a class="dropdown-item" onclick="chech('uri') " id="uri">Uric Acid</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            LFT
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('sgot')" id="sgot">SGOT</a></li>
+                            <li><a class="dropdown-item" onclick="chech('sgpt')" id="sgpt">SGPT</a></li>
+                            <li><a class="dropdown-item" onclick="chech('tbili')" id="tbili">T.Bilirubin</a></li>
+                            <li><a class="dropdown-item" onclick="chech('alk')" id="alk">ALK.Phosp</a></li>
+                            <li><a class="dropdown-item" onclick="chech('ggt')" id="ggt">GGT</a></li>
+                            <li><a class="dropdown-item" onclick="chech('albu')" id="albu">Albumin</a></li>
+                            <li><a class="dropdown-item" onclick="chech('tpro')" id="tpro">T.Protien</a></li>
+                            <li><a class="dropdown-item" onclick="chech('amyl')" id="amyl">Amylase</a></li>
+                            <li><a class="dropdown-item" onclick="chech('lipa')" id="lipa">Lipase</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            Lipid Profile
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('Choles')" id="Choles">Cholesterol</a></li>
+                            <li><a class="dropdown-item" onclick="chech('Trigly')" id="Trigly">Triglyceride</a></li>
+                            <li><a class="dropdown-item" onclick="chech('Hdl')" id="Hdl">HDL</a></li>
+                            <li><a class="dropdown-item" onclick="chech('Ldl')" id="Ldl">LDL</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            Electrolyte
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('Sod')" id="Sod">Sodium</a></li>
+                            <li><a class="dropdown-item" onclick="chech('Pota')" id="Pota">Potassium</a></li>
+                            <li><a class="dropdown-item" onclick="chech('Calc')" id="Calc">Calcium</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            Cardiac Profile
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" onclick="chech('tn1')" id="tn1">Tn-1</a></li>
+                            <li><a class="dropdown-item" onclick="chech('CKMD')" id="CKMD">CK-MD</a></li>
+                            <li><a class="dropdown-item" onclick="chech('DDimer')" id="DDimer">D-Dimer</a></li>
+                            <li><a class="dropdown-item" onclick="chech('hsCRP')" id="hsCRP">hs-CRP</a></li>
+                        </ul>
+                    </div>
+                </div> </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+        var i = 0;
+        function chech(x) {
+            const tex = document.getElementById('text');
+            const txt = "askjfhjkasd";
+            i++;
+            const tn = document.getElementById(x);
+            tex.innerHTML += i + '-->' + tn.innerText + "  \n";
+
+        }
+
+    </script>

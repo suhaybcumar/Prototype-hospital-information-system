@@ -1,0 +1,106 @@
+﻿@model PHIMS.Models.Doctor
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = null;
+}
+
+
+<form asp-action="Edit">
+<div class="row">
+    <div class="col-md-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Doctor_Id" />
+            <input type="hidden" asp-for="UserId" />
+            <div class="form-group">
+                <label asp-for="F_Name" class="control-label"></label>
+                <input asp-for="F_Name" class="form-control" />
+                <span asp-validation-for="F_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="M_Name" class="control-label"></label>
+                <input asp-for="M_Name" class="form-control" />
+                <span asp-validation-for="M_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="L_Name" class="control-label"></label>
+                <input asp-for="L_Name" class="form-control" />
+                <span asp-validation-for="L_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone_Number" class="control-label"></label>
+                <input asp-for="Phone_Number" class="form-control" />
+                <span asp-validation-for="Phone_Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" type="date" class="form-control" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="R_Date" class="control-label"></label>
+                <input asp-for="R_Date" type="date" class="form-control" />
+                <span asp-validation-for="R_Date" class="text-danger"></span>
+            </div>
+           
+            
+    </div>
+    <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-control">
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Specializations" class="control-label"></label>
+                <input asp-for="Specializations" class="form-control" />
+                <span asp-validation-for="Specializations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Working_days" class="control-label"></label>
+                <input asp-for="Working_days" class="form-control" />
+                <span asp-validation-for="Working_days" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Working_hours" class="control-label"></label>
+                <input asp-for="Working_hours" class="form-control" />
+                <span asp-validation-for="Working_hours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="National_Id" class="control-label"></label>
+                <input asp-for="National_Id" class="form-control" />
+                <span asp-validation-for="National_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee_Id" class="control-label"></label>
+                <input asp-for="Employee_Id" class="form-control" />
+                <span asp-validation-for="Employee_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Department" class="control-label"></label>
+                <input asp-for="Department" class="form-control" />
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Available" /> @Html.DisplayNameFor(model => model.Available)
+                </label>
+            </div>
+    </div>
+</div>
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary btn-block" />
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+

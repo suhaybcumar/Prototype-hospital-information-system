@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PHIMS.Models.Lab>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<p class="d-flex">
+    <h1 class="d-inline">LAB Management</h1>
+    <a onclick="showModal('@Url.Action("Create","Labs",null,Context.Request.Scheme)','Pateints Registration')" class="btn btn-success float-end"><i class="bi bi-plus-square-fill"></i> Register New</a>
+</p>
+<hr />
+<table class="table table-sm table-striped table-bordered table-hover nowrap" style="width:100%;" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Prescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pateint)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.F_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pateint.F_Name)
+            </td>
+            <td>
+                    <a onclick="showModal('@Url.Action("Edit","Labs",new {id=item.Lab_Id},Context.Request.Scheme)','Pateints Registration')" class="btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i> Edit</a> |
+                    <a onclick="showModal('@Url.Action("Details","Labs",new {id=item.Lab_Id},Context.Request.Scheme)','Pateints Registration')" class="btn btn-secondary btn-sm"><i class="bi bi-clipboard-data"></i> Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Lab_Id" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    Layout = "_dashboard";
+}
+<div class="row mt-4">
+    <div class="col d-flex mb-3">
+        <h2 class="text-primary d-inline">User List</h2>
+        <a class="btn btn-primary ml-auto" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </div>
+</div>
+
+    @if(Model.Count()>0)
+    {
+    <table class="table table-striped border display nowrap" id="table_id" style="width:100%;  ">
+            <thead class="table-secondary">
+                <th>Email</th>
+                <th>Name</th>
+                <th>Roles</th>
+                <th>Action</th>
+            </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Email</td>
+                        <td>@item.Name</td>
+                        <td>@item.Role</td>
+                        <td>
+                        <a asp-action="Edit" asp-route-userId="@item.Id" class="btn btn-sm btn-success">Edit</a>
+                            @if(item.LockoutEnd==null || item.LockoutEnd<DateTime.Now)
+                            {
+                            <a asp-action="LockUnlock" asp-route-userId="@item.Id" class="btn btn-sm btn-info">Lock</a>
+                            }
+                            else
+                            {
+                            <a asp-action="LockUnlock" asp-route-userId="@item.Id" class="btn btn-sm btn-primary">Unlock</a>
+                            }
+                            <a asp-action="Delete" asp-route-userId="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+
+                    </tr>
+
+                }
+        </table>
+    }

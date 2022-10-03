@@ -1,0 +1,69 @@
+﻿@model IEnumerable<PHIMS.Models.Admin>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+
+<p class="d-flex">
+    <h1 class="d-inline">Admin Management</h1>
+    <a class="btn btn-success float-end" onclick="showModal('@Url.Action("Create","Admins",null,Context.Request.Scheme)','Admin Registration')"><i class="bi bi-plus-square-fill"></i> Create New</a>
+</p>
+<hr />
+<table class="table table-hover table-bordered table-striped display nowrap" style="width: 100%" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.F_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.M_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.R_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.F_Name)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.F_Name)
+            </td>
+            <td>    
+                @Html.DisplayFor(modelItem => item.M_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone_Number)
+            </td>
+            <td>
+                    
+                    @Html.DisplayFor(modelItem =>  item.R_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                    <a onclick="showModal('@Url.Action("Edit","Admins",new {id=item.Admin_Id},Context.Request.Scheme)','Admin Updating')" class="btn btn-primary btn-sm"> <i class="bi bi-pencil-square"></i> Edit</a> |
+                    <a onclick="showModal('@Url.Action("Details","Admins",new {id=item.Admin_Id},Context.Request.Scheme)','Admin Details')" class="btn btn-secondary btn-sm"><i class="bi bi-clipboard-data"></i> Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Admin_Id" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

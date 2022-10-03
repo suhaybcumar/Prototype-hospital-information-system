@@ -1,0 +1,17 @@
+﻿@model PHIMS.Models.Admin;
+<form method="post" asp-action="Login">
+    <div class="form-group"> 
+        <label class="form-label">Type</label>
+        <select id="type"  asp-for="type" class="form-control">
+            <option value="Admin">Admin</option>
+            <option value="Doctor">Doctor</option>
+            <option value="User"> User</option>
+            <option value="UserRead">User Read</option>
+        </select>
+    </div>
+    <div>
+        <label class="form-label">Your ID</label>
+        <input id="id" type="number" asp-for="id" class="form-control" />
+    </div>
+    <input type="submit" value=" Login" asp-action="Login" class="btn btn-primary"/>
+</form>

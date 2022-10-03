@@ -1,0 +1,55 @@
+﻿@model IEnumerable<PHIMS.Models.Result>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+
+<p class="d-flex">
+    <h1 class="d-inline">Result Management</h1>
+    <a class="btn btn-success float-end" onclick="showModal('@Url.Action("Create","Results",null)','Result Registration')" ><i class="bi bi-plus-square-fill"></i> Create New</a>
+</p>
+<table class="table  table-striped table-hover table-bordered table-sm nowrap" style="width:100%;" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.result)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Advice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doctor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pateint)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Advice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.F_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pateint.F_Name)
+            </td>
+            <td>
+                    <a onclick="showModal('@Url.Action("Create","Results",new {id=@item.Id_Result})','Result Updating')" class="btn btn-primary btn-sm "><i class="bi bi-pencil-square"></i> Edit</a> |
+                    <a onclick="showModal('@Url.Action("Create","Results",new {id=@item.Id_Result})','Result Details')" class="btn btn-secondary btn-sm"><i class="bi bi-clipboard-data"></i> Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id_Result" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

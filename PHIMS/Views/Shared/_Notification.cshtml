@@ -1,0 +1,14 @@
+﻿@if (TempData[SD.Success] != null)
+{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        swal("@TempData[SD.Type]", "@TempData[SD.Success]", "success");
+    </script>
+}
+@if (TempData[SD.Error] != null)
+{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        swal("@TempData[SD.Type]!", "@TempData[SD.Error]", "error");
+    </script>
+}

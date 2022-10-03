@@ -1,0 +1,33 @@
+﻿@model PHIMS.Models.Lab ;
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Lab</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Pateint_Id" class="control-label"></label>
+                <select asp-for="Pateint_Id" class="form-control" asp-items="ViewBag.Pateint_Id"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

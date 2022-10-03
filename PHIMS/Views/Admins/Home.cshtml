@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PHIMS.Models.Doctor>
+@{
+    Layout = "_Dashboard";
+}
+
+<h1>List of Available Doctors</h1>
+<div class="row">
+
+@foreach (var item in Model)
+{
+    <div class="col-4 mb-4" >
+    <div class="card" style="width: 18rem;">
+        
+        <div class="card-body">
+            <h5 class="card-title">@item.F_Name  @item.M_Name   @item.L_Name</h5>
+            <p class="card-text">@item.Specializations</p>
+        </div>
+        <div class="card-footer bg-primary">
+            <p href="#" class="text-white text-center text-uppercase " >Available</p>
+        </div>
+    </div>
+        </div>
+}
+</div>

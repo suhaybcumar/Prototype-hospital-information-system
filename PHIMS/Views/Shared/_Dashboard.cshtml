@@ -1,0 +1,264 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    @*<meta http-equiv="refresh" content="6"; >*@
+    <title>@ViewData["Title"] - PHIMS</title>
+     
+   
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" integrity="sha384-xeJqLiuOvjUBq3iGOjvSQSIlwrpqjSHXpduPd6rQpuiM3f5/ijby8pCsnbu5S81n" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+
+        media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+
+        .b-example-divider {
+          height: 3rem;
+          background-color: rgba(0, 0, 0, .1);
+          border: solid rgba(0, 0, 0, .15);
+          border-width: 1px 0;
+          box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+          flex-shrink: 0;
+          width: 1.5rem;
+          height: 100vh;
+        }
+
+        .bi {
+          vertical-align: -.125em;
+          fill: currentColor;
+        }
+
+        .nav-scroller {
+          position: relative;
+          z-index: 2;
+          height: 2.75rem;
+          overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+          display: flex;
+          flex-wrap: nowrap;
+          padding-bottom: 1rem;
+          margin-top: -1px;
+          overflow-x: auto;
+          text-align: center;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+          
+        }
+        .nav-item:hover
+        {
+          background-color:white;
+          color: white;
+          border-left: 3px solid rgb(63, 60, 235);
+        }
+       
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand  col-md-3 col-lg-2 me-0 px-3 fs-6" href="#"><img class="img-fluid" src="~/images/HGH-Logo2.png" /></a>
+        <h1 class="text-white">Hargeisa Group Hospital</h1>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav">
+
+            <div class=" text-nowrap mr-2 d d-flex">
+                
+                    <button  class="bg-transparent mr-3 text-white border-0 "  title="Manage">Hello @User.Identity?.Name!</button>
+                
+                <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button  type="submit" class="nav-link btn btn-link ">Logout</button>
+                 </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar mt-4 collapse shadow">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link  " asp-controller="Admins" asp-action="Home"  aria-current="page" >
+                                <span data-feather="home" class="align-text-bottom"></span>
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        @if (User.IsInRole("Super Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Admins" asp-action="index">
+                                    <span data-feather="file" class="align-text-bottom"></span>
+                                    <i class="bi bi-stars"></i>  Admin
+                                </a>
+                            </li>
+                        }
+                         @if (User.IsInRole("Super Admin") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Users" asp-action="index">
+                                    <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                                    <i class="bi bi-people-fill"></i> Users
+                                </a>
+                            </li>
+                        }
+                         @if (User.IsInRole("Super Admin") || User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Doctors" asp-action="index">
+                                    <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                                    <i class="bi bi-person-lines-fill"></i> Doctors
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Super Admin") || User.IsInRole("Admin") || User.IsInRole("Doctor")||User.IsInRole("User Read")||User.IsInRole("User"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Pateints" asp-action="index">
+                                    <span data-feather="users" class="align-text-bottom"></span>
+                                    <i class="bi bi-arrow-right-square-fill"></i>  Pateint
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Doctor"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Pateints" asp-action="All">
+                                    <span data-feather="users" class="align-text-bottom"></span>
+                                    <i class="bi bi-arrow-right-square-fill"></i> All  Pateints
+                                </a>
+                            </li>
+                        }
+                         @if(User.IsInRole("Super Admin") || User.IsInRole("Doctor"))
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link " asp-controller="Labs" asp-action="index">
+                                <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                                <i class="bi bi-bookmark-dash-fill"></i> Labs
+                            </a>
+                        </li>
+                        }
+                        @if (User.IsInRole("Super Admin") || User.IsInRole("Doctor"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="Results" asp-action="index">
+                                    <span data-feather="layers" class="align-text-bottom"></span>
+                                    <i class="bi bi-bag-plus-fill"></i>  Results
+                                </a>
+                            </li>
+                        }
+                     
+                         @if (User.IsInRole("Super Admin")||User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-controller="User" asp-action="index">
+                                    <span data-feather="layers" class="align-text-bottom"></span>
+                                    <i class="bi bi-bag-plus-fill"></i>  Accounts
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <partial name="_Notification"></partial>
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    @*Modal Popup*@
+
+    <div class="modal" tabindex="-1" role="dialog" id="form-modal">
+        <div class="modal-dialog modal-lg " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                 
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loaderbody" id="loaderbody">
+      <div class="loader"></div>
+    </div>  
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(function () {
+            $("#loaderbody").addClass('hide');
+            
+            $(document).bind('ajaxStart', function () {
+                $("#loaderbody").removeClass('hide');
+            }).bind('ajaxStop', function () {
+                $("#loaderbody").addClass('hide');
+            });
+        });
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                dom: 'Bfrtip',
+                scrollX:true,
+                buttons: [{
+                    extend: 'excelHtml5',
+                    autoFilter: true,
+                    sheetName: 'Exported data'
+                }]
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

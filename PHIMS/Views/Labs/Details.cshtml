@@ -1,0 +1,38 @@
+﻿@model PHIMS.Models.Lab
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = null;
+}
+
+
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Prescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Prescription)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.F_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pateint)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pateint.F_Name)
+        </dd>
+    </dl>
+</div>
+
