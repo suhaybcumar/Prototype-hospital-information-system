@@ -78,8 +78,13 @@ namespace PHIMS.Controllers
                 lab.Lab_Id = Guid.NewGuid();
                 _context.Add(lab);
                 await _context.SaveChangesAsync();
+                TempData[SD.Success] = "Laboratory Information Saved";
+                TempData[SD.Type] = "Laboratory";
                 return RedirectToAction(nameof(Index));
             }
+
+            TempData[SD.Error] = "Something Went Wrong";
+            TempData[SD.Type] = "Laboratory";
             ViewData["Pateint_Id"] = new SelectList(_context.Pateint, "Pateint_Id", "F_Name", lab.Pateint_Id);
             return View(lab);
         }
@@ -120,6 +125,8 @@ namespace PHIMS.Controllers
                 {
                     lab.Doctor_Id = (int)HttpContext.Session.GetInt32("test");
                     _context.Update(lab);
+                    TempData[SD.Success] = "Laboratory Information Edited";
+                    TempData[SD.Type] = "Laboratory";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -132,7 +139,10 @@ namespace PHIMS.Controllers
                     {
                         throw;
                     }
+                TempData[SD.Error] = "Something Went Wrong";
+                TempData[SD.Type] = "Laboratory";
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Pateint_Id"] = new SelectList(_context.Pateint, "Pateint_Id", "F_Name", lab.Pateint_Id);
@@ -172,9 +182,12 @@ namespace PHIMS.Controllers
             var lab = await _context.Lab.FindAsync(id);
             if (lab != null)
             {
+                TempData[SD.Success] = "Laboratory Information Deleted";
+                TempData[SD.Type] = "Laboratory";
                 _context.Lab.Remove(lab);
             }
-            
+            TempData[SD.Error] = "Something Went Wrong";
+            TempData[SD.Type] = "Laboratory";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
