@@ -150,7 +150,7 @@
                             <li class="nav-item">
                                 <a class="nav-link " asp-controller="Pateints" asp-action="index">
                                     <span data-feather="users" class="align-text-bottom"></span>
-                                    <i class="bi bi-arrow-right-square-fill"></i>  Pateint
+                                    <i class="bi bi-arrow-right-square-fill"></i>  Patients
                                 </a>
                             </li>
                         }
@@ -159,7 +159,7 @@
                             <li class="nav-item">
                                 <a class="nav-link " asp-controller="Pateints" asp-action="All">
                                     <span data-feather="users" class="align-text-bottom"></span>
-                                    <i class="bi bi-arrow-right-square-fill"></i> All  Pateints
+                                    <i class="bi bi-arrow-right-square-fill"></i> All  Patients
                                 </a>
                             </li>
                         }
@@ -252,8 +252,7 @@
                 dom: 'Bfrtip',
                 scrollX:true,
                 buttons: [{
-                    extend: 'excelHtml5',
-                    autoFilter: true,
+                    extend: 'excelHtml5',   
                     sheetName: 'Exported data'
                 }]
             });

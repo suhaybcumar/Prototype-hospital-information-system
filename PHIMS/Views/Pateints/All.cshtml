@@ -6,7 +6,7 @@
 }
 
 <p class="d-flex">
-    <h1 class="d-inline">Pateint Managment</h1>
+    <h1 class="d-inline">Patient Management</h1>
     @if (User.IsInRole("User"))
     {
         <a onclick="showModal('@Url.Action("Create","Pateints",null,Context.Request.Scheme)','Pateints Registration')" class="btn btn-success float-end"><i class="bi bi-plus-square-fill"></i>  Create New</a>

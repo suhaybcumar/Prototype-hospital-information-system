@@ -22,7 +22,6 @@ body {
 .form-control, .form-select, .input-group-text {
     border: 1px solid #0080ff;
 }
-
 a.btn:hover {
     cursor: pointer !important;
 }
